@@ -53,22 +53,28 @@ function update() {
     const left = this.cursors.left.isDown;
     const right = this.cursors.right.isDown;
 
+    let targetAngle = 0;
     if (left && right) {
         // Both thrusters: go straight up
         jet.setVelocityY(jet.body.velocity.y - this.thrustPower);
+        targetAngle = 0;
     } else if (right) {
         // Right thruster: up and left (diagonal)
         jet.setVelocity(
             jet.body.velocity.x - this.thrustPower,
             jet.body.velocity.y - this.thrustPower
         );
+        targetAngle = -20;
     } else if (left) {
         // Left thruster: up and right (diagonal)
         jet.setVelocity(
             jet.body.velocity.x + this.thrustPower,
             jet.body.velocity.y - this.thrustPower
         );
+        targetAngle = 20;
     }
+    // Smoothly animate the angle
+    jet.setAngle(Phaser.Math.Linear(jet.angle, targetAngle, 0.1));
 }
 
 function resize(gameSize) {
