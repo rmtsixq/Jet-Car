@@ -38,6 +38,7 @@ function create() {
     backgroundImage.setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
 
     jet = this.physics.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'jet');
+    jet.setScale(0.3);
     jet.setCollideWorldBounds(true);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.thrustPower = 300;
@@ -55,10 +56,10 @@ function update() {
     if (left && right) {
         // Both thrusters: go up
         jet.setAccelerationY(-this.thrustPower);
-    } else if (left) {
+    } else if (right) {
         // Right thruster: go left
         jet.setAccelerationX(-this.thrustPower);
-    } else if (right) {
+    } else if (left) {
         // Left thruster: go right
         jet.setAccelerationX(this.thrustPower);
     }
