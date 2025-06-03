@@ -19,11 +19,12 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-    // Asset yüklemeleri burada yapılacak
+    this.load.image('jet', 'assets/images/jet.png');
 }
 
 function create() {
-    // Oyun başlangıç ayarları
+    this.jet = this.physics.add.sprite(400, 300, 'jet');
+    this.jet.setCollideWorldBounds(true);
 }
 
 function update() {
