@@ -40,37 +40,43 @@ function create() {
     jet = this.physics.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'jet');
     jet.setScale(0.3);
     jet.setCollideWorldBounds(true);
+    jet.setDamping(true);
+    jet.setDrag(0.99); // Low drag for space effect
+    jet.setMaxVelocity(400, 400);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.thrustPower = 300;
+    this.thrustPower = 15;
 
     this.scale.on('resize', resize, this);
 }
 
 function update() {
-    // Reset acceleration
-    jet.setAcceleration(0, 0);
-
     const left = this.cursors.left.isDown;
     const right = this.cursors.right.isDown;
 
     if (left && right) {
-        // Both thrusters: go up
-        jet.setAccelerationY(-this.thrustPower);
+        // Both thrusters: go straight up
+        jet.setVelocityY(jet.body.velocity.y - this.thrustPower);
     } else if (right) {
-        // Right thruster: go left
-        jet.setAccelerationX(-this.thrustPower);
+        // Right thruster: up and left (diagonal)
+        jet.setVelocity(
+            jet.body.velocity.x - this.thrustPower,
+            jet.body.velocity.y - this.thrustPower
+        );
     } else if (left) {
-        // Left thruster: go right
-        jet.setAccelerationX(this.thrustPower);
+        // Left thruster: up and right (diagonal)
+        jet.setVelocity(
+            jet.body.velocity.x + this.thrustPower,
+            jet.body.velocity.y - this.thrustPower
+        );
     }
 }
 
 function resize(gameSize) {
-    if (!backgroundImage || !jet) return;
+    if (!backgroundImage) return;
     const width = gameSize.width;
     const height = gameSize.height;
     backgroundImage.setDisplaySize(width, height);
-    jet.setPosition(width / 2, height / 2);
+    // jet.setPosition(width / 2, height / 2); // Removed to prevent jet from resetting
 }
 window.addEventListener('resize', () => {
     game.scale.resize(window.innerWidth, window.innerHeight);
