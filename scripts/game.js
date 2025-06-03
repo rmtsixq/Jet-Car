@@ -48,9 +48,9 @@ function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.thrustPower = 5; // Lower thrust for smoother acceleration
 
-    // Thrust sprites (hidden by default, further apart and lower)
-    thrustLeft = this.add.image(jet.x - 32, jet.y + 48, 'thrust').setScale(0.3).setVisible(false);
-    thrustRight = this.add.image(jet.x + 32, jet.y + 48, 'thrust').setScale(0.3).setVisible(false);
+    // Thrust sprites (hidden by default, more apart horizontally, not as low vertically)
+    thrustLeft = this.add.image(jet.x - 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
+    thrustRight = this.add.image(jet.x + 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
 
     this.scale.on('resize', resize, this);
 }
@@ -91,9 +91,9 @@ function update() {
     // Smoothly animate the angle
     jet.setAngle(Phaser.Math.Linear(jet.angle, targetAngle, 0.1));
 
-    // Update thrust positions to follow the jet (further apart and lower)
-    const offsetX = 32 * jet.scaleX;
-    const offsetY = 48 * jet.scaleY;
+    // Update thrust positions to follow the jet (more apart horizontally, not as low vertically)
+    const offsetX = 80 * jet.scaleX;
+    const offsetY = 85 * jet.scaleY;
     thrustLeft.setPosition(jet.x - offsetX, jet.y + offsetY);
     thrustRight.setPosition(jet.x + offsetX, jet.y + offsetY);
     thrustLeft.setRotation(jet.rotation);
