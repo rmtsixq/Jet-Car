@@ -25,12 +25,14 @@ const config = {
 
 let backgroundImage;
 let jet;
+let thrustLeft, thrustRight;
 
 const game = new Phaser.Game(config);
 
 function preload() {
     this.load.image('jet', 'jet.png');
     this.load.image('background', 'background.png');
+    this.load.image('thrust', 'thrust.png');
 }
 
 function create() {
@@ -46,6 +48,10 @@ function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.thrustPower = 5; // Lower thrust for smoother acceleration
 
+    // Thrust sprites (hidden by default, further apart and lower)
+    thrustLeft = this.add.image(jet.x - 32, jet.y + 48, 'thrust').setScale(0.3).setVisible(false);
+    thrustRight = this.add.image(jet.x + 32, jet.y + 48, 'thrust').setScale(0.3).setVisible(false);
+
     this.scale.on('resize', resize, this);
 }
 
@@ -58,6 +64,8 @@ function update() {
         // Both thrusters: go straight up
         jet.setVelocityY(jet.body.velocity.y - this.thrustPower);
         targetAngle = 0;
+        thrustLeft.setVisible(true);
+        thrustRight.setVisible(true);
     } else if (right) {
         // Right thruster: up and left (diagonal)
         jet.setVelocity(
@@ -65,6 +73,8 @@ function update() {
             jet.body.velocity.y - this.thrustPower
         );
         targetAngle = -20;
+        thrustLeft.setVisible(false);
+        thrustRight.setVisible(true);
     } else if (left) {
         // Left thruster: up and right (diagonal)
         jet.setVelocity(
@@ -72,9 +82,22 @@ function update() {
             jet.body.velocity.y - this.thrustPower
         );
         targetAngle = 20;
+        thrustLeft.setVisible(true);
+        thrustRight.setVisible(false);
+    } else {
+        thrustLeft.setVisible(false);
+        thrustRight.setVisible(false);
     }
     // Smoothly animate the angle
     jet.setAngle(Phaser.Math.Linear(jet.angle, targetAngle, 0.1));
+
+    // Update thrust positions to follow the jet (further apart and lower)
+    const offsetX = 32 * jet.scaleX;
+    const offsetY = 48 * jet.scaleY;
+    thrustLeft.setPosition(jet.x - offsetX, jet.y + offsetY);
+    thrustRight.setPosition(jet.x + offsetX, jet.y + offsetY);
+    thrustLeft.setRotation(jet.rotation);
+    thrustRight.setRotation(jet.rotation);
 }
 
 function resize(gameSize) {
