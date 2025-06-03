@@ -9,7 +9,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 400 },
             debug: false
         }
     },
@@ -41,10 +41,10 @@ function create() {
     jet.setScale(0.3);
     jet.setCollideWorldBounds(true);
     jet.setDamping(true);
-    jet.setDrag(0.99); // Low drag for space effect
-    jet.setMaxVelocity(400, 400);
+    jet.setDrag(0.995); // Higher drag for more delay
+    jet.setMaxVelocity(200, 200); // Lower max velocity for more control
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.thrustPower = 15;
+    this.thrustPower = 5; // Lower thrust for smoother acceleration
 
     this.scale.on('resize', resize, this);
 }
