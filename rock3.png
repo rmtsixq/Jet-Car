@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="395.02759"
+   height="502.48755"
+   id="svg2"
+   inkscape:label="Pozadí"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   version="1.0"
+   sodipodi:docbase="M:\Pracovní data\Projekty\Aktivní\Vektorové převody\Wikimedia Commons"
+   sodipodi:docname="Africa stub icon.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.72973034"
+     inkscape:cx="-233.90074"
+     inkscape:cy="227.38679"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1244"
+     inkscape:window-height="998"
+     inkscape:window-x="32"
+     inkscape:window-y="-4" />
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-150.56899,-160.34067)">
+    <path
+       style="fill:#000000"
+       d="M 330.2058,577.82907 C 322.09878,545.88987 318.31655,512.32881 321.80081,503.2489 C 325.2851,494.169 318.30808,463.21875 306.29631,434.47057 C 288.47161,391.81009 279.24641,383.85484 256.1142,391.19672 C 218.31692,403.19312 173.91285,361.94574 174.55738,315.43781 C 175.50323,247.1866 285.7351,158.03416 313.54376,203.02952 C 323.23262,218.70644 341.97784,223.49472 414.3119,228.76989 C 427.71746,229.74751 438.72694,241.51557 438.77738,254.92113 C 438.91027,290.20354 484.42227,352.71382 504.84291,345.66142 C 531.04366,336.6129 525.78359,367.9074 494.39704,407.80894 C 479.0764,427.28598 466.03609,459.61219 465.41857,479.64501 C 463.72659,534.53434 408.45082,626.81739 374.34313,631.69571 C 350.26804,635.13912 342.27728,625.38694 330.2058,577.82907 z M 476.10296,568.52493 C 472.6429,562.65473 475.29059,543.34725 481.98668,525.6194 C 496.55492,487.05012 522.79299,497.06605 512.30007,537.19102 C 504.05772,568.7098 485.6197,584.67065 476.10296,568.52493 z "
+       id="path2393" />
+  </g>
+</svg>

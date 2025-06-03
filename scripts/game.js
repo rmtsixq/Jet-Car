@@ -26,6 +26,7 @@ const config = {
 let backgroundImage;
 let jet;
 let thrustLeft, thrustRight;
+let rocks;
 
 const game = new Phaser.Game(config);
 
@@ -33,6 +34,12 @@ function preload() {
     this.load.image('jet', 'jet.png');
     this.load.image('background', 'background.png');
     this.load.image('thrust', 'thrust.png');
+    this.load.image('rock', 'rock.png');
+    this.load.image('rock1', 'rock1.png');
+    this.load.image('rock2', 'rock2.png');
+    this.load.image('rock3', 'rock3.png');
+    this.load.image('rock4', 'rock4.png');
+    this.load.image('rock5', 'rock5.png');
 }
 
 function create() {
@@ -51,6 +58,24 @@ function create() {
     // Thrust sprites (hidden by default, more apart horizontally, not as low vertically)
     thrustLeft = this.add.image(jet.x - 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
     thrustRight = this.add.image(jet.x + 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
+
+    // Create rocks group at fixed positions
+    rocks = this.physics.add.group();
+    const rockPositions = [
+      { x: 300, y: 250, key: 'rock1' },
+      { x: 500, y: 320, key: 'rock2' },
+      { x: 700, y: 270, key: 'rock3' },
+      { x: 900, y: 300, key: 'rock4' },
+      { x: 1100, y: 260, key: 'rock5' }
+    ];
+    for (let i = 0; i < rockPositions.length; i++) {
+      const pos = rockPositions[i];
+      const rock = rocks.create(pos.x, pos.y, pos.key);
+      rock.setScale(Phaser.Math.FloatBetween(0.7, 1.2));
+      rock.setImmovable(true);
+      rock.body.allowGravity = false;
+      rock.setVelocityX(0);
+    }
 
     this.scale.on('resize', resize, this);
 }
