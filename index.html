@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jet & Car</title>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.js"></script>
+    <title>Jet & Car Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+        canvas {
+            display: block;
+        }
+        #error-message {
+            color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="game"></div>
+    <div id="error-message"></div>
+    <script>
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('error-message').textContent = 'Error: ' + msg;
+            return false;
+        };
+    </script>
+    <script src="scripts/levelEditor.js"></script>
     <script src="scripts/game.js"></script>
 </body>
 </html> 

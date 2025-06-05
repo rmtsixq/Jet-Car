@@ -3,7 +3,7 @@ const config = {
     width: window.innerWidth,
     height: window.innerHeight,
     scale: {
-        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {
@@ -16,17 +16,15 @@ const config = {
     scene: {
         preload: preload,
         create: create,
-        update: update,
-        extend: {
-            resize: resize
-        }
+        update: update
     }
 };
 
 let backgroundImage;
 let jet;
 let thrustLeft, thrustRight;
-let rocks;
+let levelEditor;
+let isEditMode = false;
 
 const game = new Phaser.Game(config);
 
@@ -50,49 +48,50 @@ function create() {
     jet.setScale(0.3);
     jet.setCollideWorldBounds(true);
     jet.setDamping(true);
-    jet.setDrag(0.995); // Higher drag for more delay
-    jet.setMaxVelocity(200, 200); // Lower max velocity for more control
+    jet.setDrag(0.995);
+    jet.setMaxVelocity(200, 200);
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.thrustPower = 5; // Lower thrust for smoother acceleration
+    this.thrustPower = 5;
 
-    // Thrust sprites (hidden by default, more apart horizontally, not as low vertically)
     thrustLeft = this.add.image(jet.x - 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
     thrustRight = this.add.image(jet.x + 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
 
-    // Create rocks group at fixed positions
-    rocks = this.physics.add.group();
-    const rockPositions = [
-      { x: 300, y: 250, key: 'rock1' },
-      { x: 500, y: 320, key: 'rock2' },
-      { x: 700, y: 270, key: 'rock3' },
-      { x: 900, y: 300, key: 'rock4' },
-      { x: 1100, y: 260, key: 'rock5' }
-    ];
-    for (let i = 0; i < rockPositions.length; i++) {
-      const pos = rockPositions[i];
-      const rock = rocks.create(pos.x, pos.y, pos.key);
-      rock.setScale(Phaser.Math.FloatBetween(0.7, 1.2));
-      rock.setImmovable(true);
-      rock.body.allowGravity = false;
-      rock.setVelocityX(0);
-    }
+    // Initialize level editor
+    levelEditor = new LevelEditor(this);
+    levelEditor.create();
+
+    // Add edit mode toggle
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Toggle Edit Mode';
+    editButton.style.position = 'absolute';
+    editButton.style.top = '10px';
+    editButton.style.right = '10px';
+    editButton.style.zIndex = '1000';
+    editButton.onclick = () => {
+        isEditMode = !isEditMode;
+        levelEditor.toggleEditMode();
+        jet.setVisible(!isEditMode);
+        thrustLeft.setVisible(false);
+        thrustRight.setVisible(false);
+    };
+    document.body.appendChild(editButton);
 
     this.scale.on('resize', resize, this);
 }
 
 function update() {
+    if (isEditMode) return;
+
     const left = this.cursors.left.isDown;
     const right = this.cursors.right.isDown;
 
     let targetAngle = 0;
     if (left && right) {
-        // Both thrusters: go straight up
         jet.setVelocityY(jet.body.velocity.y - this.thrustPower);
         targetAngle = 0;
         thrustLeft.setVisible(true);
         thrustRight.setVisible(true);
     } else if (right) {
-        // Right thruster: up and left (diagonal)
         jet.setVelocity(
             jet.body.velocity.x - this.thrustPower,
             jet.body.velocity.y - this.thrustPower
@@ -101,7 +100,6 @@ function update() {
         thrustLeft.setVisible(false);
         thrustRight.setVisible(true);
     } else if (left) {
-        // Left thruster: up and right (diagonal)
         jet.setVelocity(
             jet.body.velocity.x + this.thrustPower,
             jet.body.velocity.y - this.thrustPower
@@ -113,10 +111,9 @@ function update() {
         thrustLeft.setVisible(false);
         thrustRight.setVisible(false);
     }
-    // Smoothly animate the angle
+
     jet.setAngle(Phaser.Math.Linear(jet.angle, targetAngle, 0.1));
 
-    // Update thrust positions to follow the jet (more apart horizontally, not as low vertically)
     const offsetX = 80 * jet.scaleX;
     const offsetY = 85 * jet.scaleY;
     thrustLeft.setPosition(jet.x - offsetX, jet.y + offsetY);
@@ -130,8 +127,8 @@ function resize(gameSize) {
     const width = gameSize.width;
     const height = gameSize.height;
     backgroundImage.setDisplaySize(width, height);
-    // jet.setPosition(width / 2, height / 2); // Removed to prevent jet from resetting
 }
+
 window.addEventListener('resize', () => {
     game.scale.resize(window.innerWidth, window.innerHeight);
 });
