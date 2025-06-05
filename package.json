@@ -9,8 +9,7 @@
     "vercel-build": "echo 'No build step required'"
   },
   "dependencies": {
-    "phaser": "^3.55.2",
-    "http-server": "^14.1.1"
+    "phaser": "^3.55.2"
   },
   "engines": {
     "node": ">=14.0.0"
