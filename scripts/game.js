@@ -23,8 +23,6 @@ const config = {
 let backgroundImage;
 let jet;
 let thrustLeft, thrustRight;
-let levelEditor;
-let isEditMode = false;
 
 const game = new Phaser.Game(config);
 
@@ -56,32 +54,10 @@ function create() {
     thrustLeft = this.add.image(jet.x - 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
     thrustRight = this.add.image(jet.x + 80, jet.y + 50, 'thrust').setScale(0.3).setVisible(false);
 
-    // Initialize level editor
-    levelEditor = new LevelEditor(this);
-    levelEditor.create();
-
-    // Add edit mode toggle
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Toggle Edit Mode';
-    editButton.style.position = 'absolute';
-    editButton.style.top = '10px';
-    editButton.style.right = '10px';
-    editButton.style.zIndex = '1000';
-    editButton.onclick = () => {
-        isEditMode = !isEditMode;
-        levelEditor.toggleEditMode();
-        jet.setVisible(!isEditMode);
-        thrustLeft.setVisible(false);
-        thrustRight.setVisible(false);
-    };
-    document.body.appendChild(editButton);
-
     this.scale.on('resize', resize, this);
 }
 
 function update() {
-    if (isEditMode) return;
-
     const left = this.cursors.left.isDown;
     const right = this.cursors.right.isDown;
 

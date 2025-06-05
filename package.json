@@ -1,0 +1,18 @@
+{
+  "name": "jet-and-car",
+  "version": "1.0.0",
+  "description": "A multiplayer game where a spaceship and car work together to navigate through challenging courses",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -c-1",
+    "build": "echo 'No build step required'",
+    "vercel-build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "phaser": "^3.55.2",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
